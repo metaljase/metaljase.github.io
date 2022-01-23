@@ -1,0 +1,42 @@
+﻿body {
+    background-color: #171717;
+    color: white;
+}
+
+p {
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+table, td, th {
+    border: 1px solid #484848;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 6px;
+    font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+th {
+    font-weight: bold;
+    background-color: #484848;
+}
+
+a:link {
+    text-decoration-line: none;
+    color: #75b6e7;
+}
+
+a:visited {
+    text-decoration-line: none;
+    color: #ac7ee1;
+}
+
+a:hover, a:active {
+    text-decoration-line: underline;
+    color: #278cda;
+}
