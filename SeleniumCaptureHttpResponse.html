@@ -8,26 +8,36 @@
 </head>
 <body>
     <p>The purpose of this web page is to act as an example web page for <a href="https://github.com/metaljase/SeleniumCaptureHttpResponse">my SeleniumCaptureHttpResponse repository</a> on GitHub.</p>
-    
-    <p>Utilising Selenium WebDriver, ChromeDriver, Chrome DevTools Protocol, and C#, SeleniumCaptureHttpResponse demonstrates how to capture the HTTP response from an API call performed on a 3rd party web page. This can be useful for testing, or as part of scraping 3rd party websites. Specifically, SeleniumCaptureHttpResponse demonstrates capturing JSON from the message body of an HTTP response, then deserializing it.</p>
 
-    <p>Below is <i>some</i> data returned from the API call which was performed by the JavaScript on this page. SeleniumCaptureHttpResponse will capture <i>all</i> the data as JSON.</p>
+    <p>HTTP responses received from calls to APIs (using JavaScript) on 3rd party web pages can be captured using Selenium WebDriver and ChromeDriver.  This can be useful for testing, or as part of scraping 3rd party websites.</p>
 
-    <table>
-        <thead>
-            <tr><th>Name</th><th>Email Address</th></tr>
-        </thead>
-        <tbody id="users">
-        </tbody>
-    </table>
+    <p>The JavaScript in this web page makes two API calls, which both return JSON in the message body of the HTTP response.  Some of the data returned from those API calls are displayed below.  SeleniumCaptureHttpResponse contains a .NET 8 console app that demonstrates capturing all the JSON from those API calls, and writing the JSON to the console.</p>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr><th>Name</th><th>Email Address</th></tr>
+            </thead>
+            <tbody id="users">
+            </tbody>
+        </table>
+
+        <table>
+            <thead>
+                <tr><th>ID</th><th>Album Title</th></tr>
+            </thead>
+            <tbody id="albums">
+            </tbody>
+        </table>
+    </div>
 
     <script>
-        const tbody = document.getElementById('users');
-        const rows = document.createDocumentFragment();
-        const url = 'https://jsonplaceholder.typicode.com/users/';
+        const usersTbody = document.getElementById('users');
+        const usersRows = document.createDocumentFragment();
+        const usersUrl = 'https://jsonplaceholder.typicode.com/users/';
 
         async function getUsers() {
-            let response = await fetch(url);
+            let response = await fetch(usersUrl);
             let data = await response.json();
             return data;
         }
@@ -45,9 +55,42 @@
                     tdEmail.innerHTML = `${users.email}`;
                     tr.append(tdEmail);
 
-                    rows.append(tr);
+                    usersRows.append(tr);
                 });
-                tbody.append(rows)
+                usersTbody.append(usersRows)
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    </script>
+
+    <script>
+        const albumsTbody = document.getElementById('albums');
+        const albumsRows = document.createDocumentFragment();
+        const albumsUrl = 'https://jsonplaceholder.typicode.com/albums/';
+
+        async function getAlbums() {
+            let response = await fetch(albumsUrl);
+            let data = await response.json();
+            return data.slice(0, 10); // Return only the first 10 rows
+        }
+
+        getAlbums()
+            .then(json => {
+                json.map(function (albums) {
+                    let tr = document.createElement('tr');
+
+                    let tdId = document.createElement('td');
+                    tdId.innerHTML = `${albums.id}`;
+                    tr.append(tdId);
+
+                    let tdTitle = document.createElement('td');
+                    tdTitle.innerHTML = `${albums.title}`;
+                    tr.append(tdTitle);
+
+                    albumsRows.append(tr);
+                });
+                albumsTbody.append(albumsRows)
             })
             .catch(function (error) {
                 console.log(error);
