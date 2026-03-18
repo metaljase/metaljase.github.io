@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Example web page for BrowserCaptureRewrite GitHub repository.</title>
+    <link rel="stylesheet" href="../style.css ">
+    <link rel="stylesheet" href="page.css">
+</head>
+<body>
+    <p>
+        The purpose of this web page is to act as an example web page for the the samples project in
+        <a href="https://github.com/metaljase/BrowserCaptureRewrite">my BrowserCaptureRewrite repository</a> on GitHub.
+    </p>
+    <p>
+        BrowserCaptureRewrite is a NuGet package that facilitates the interception, capture, and rewriting of HTTP requests/responses performed 
+        on a web page using Playwright.  The samples project contains various examples demonstrating how the NuGet package can be used to 
+        capture and manipulate HTTP traffic.
+    </p>
+
+    <p>The JavaScript in this web page makes two calls, which both return JSON.  The data returned from those calls are displayed below.</p>
+
+
+    <div style="display: flex; gap: 40px; align-items: flex-start;">
+        <div>
+            <h2>Bands</h2>
+            <table id="bands-table" border="1">
+                <thead>
+                    <tr><th>Band Name</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div>
+            <h2>Albums</h2>
+            <div id="albums-countdown"></div>
+            <table id="albums-table" border="1" style="display:none;">
+                <thead>
+                    <tr><th>Album Name</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+    // Fetch and display bands immediately
+        fetch('https://metaljase.github.io/browsercapturerewrite/bands.json')
+        .then(response => response.json())
+        .then(data => {
+            const bands = data.Bands || [];
+            const tbody = document.querySelector('#bands-table tbody');
+            bands.forEach(band => {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.textContent = band;
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+            });
+        });
+
+    // Albums countdown and delayed fetch
+    const countdownDiv = document.getElementById('albums-countdown');
+    let secondsLeft = 10;
+    countdownDiv.textContent = `⏳ Fetching albums in ${secondsLeft} seconds...`;
+
+    const countdownInterval = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft > 0) {
+            countdownDiv.textContent = `⏳ Fetching albums in ${secondsLeft} seconds...`;
+        } else {
+            clearInterval(countdownInterval);
+            countdownDiv.textContent = 'Fetching albums...';
+            fetch('https://metaljase.github.io/browsercapturerewrite/albums.json')
+                .then(response => response.json())
+                .then(data => {
+                    const albums = data.Albums || [];
+                    const tbody = document.querySelector('#albums-table tbody');
+                    albums.forEach(album => {
+                        const tr = document.createElement('tr');
+                        const td = document.createElement('td');
+                        td.textContent = album;
+                        tr.appendChild(td);
+                        tbody.appendChild(tr);
+                    });
+                    document.getElementById('albums-table').style.display = '';
+                    countdownDiv.textContent = '';
+                });
+        }
+    }, 1000);
+    </script>
+</body>
+</html>

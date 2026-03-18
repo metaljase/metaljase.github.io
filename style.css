@@ -3,8 +3,12 @@
     color: white;
 }
 
-p {
+* {
     font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+h1, h2, h3 {
+    color: #75b6e7;
 }
 
 table, td, th {
@@ -19,7 +23,6 @@ table {
 
 th, td {
     padding: 6px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 th {
