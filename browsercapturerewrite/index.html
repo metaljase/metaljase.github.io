@@ -23,8 +23,17 @@
 
     <div style="display: flex; gap: 40px; align-items: flex-start;">
         <div>
-            <h2>Bands</h2>
-            <table id="bands-table" border="1">
+            <h2>Bands A-M</h2>
+            <table id="bands-am-table" border="1">
+                <thead>
+                    <tr><th>Band Name</th></tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+        <div>
+            <h2>Bands N-Z</h2>
+            <table id="bands-nz-table" border="1">
                 <thead>
                     <tr><th>Band Name</th></tr>
                 </thead>
@@ -44,12 +53,27 @@
     </div>
 
     <script>
-    // Fetch and display bands immediately
-        fetch('https://metaljase.github.io/browsercapturerewrite/bands.json')
+    // Fetch and display Bands A-M
+    fetch('https://metaljase.github.io/browsercapturerewrite/bands_a-m.json')
         .then(response => response.json())
         .then(data => {
             const bands = data.Bands || [];
-            const tbody = document.querySelector('#bands-table tbody');
+            const tbody = document.querySelector('#bands-am-table tbody');
+            bands.forEach(band => {
+                const tr = document.createElement('tr');
+                const td = document.createElement('td');
+                td.textContent = band;
+                tr.appendChild(td);
+                tbody.appendChild(tr);
+            });
+        });
+
+    // Fetch and display Bands N-Z
+    fetch('https://metaljase.github.io/browsercapturerewrite/bands_n-z.json')
+        .then(response => response.json())
+        .then(data => {
+            const bands = data.Bands || [];
+            const tbody = document.querySelector('#bands-nz-table tbody');
             bands.forEach(band => {
                 const tr = document.createElement('tr');
                 const td = document.createElement('td');
