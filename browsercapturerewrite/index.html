@@ -83,9 +83,15 @@
             });
         });
 
-    // Albums countdown and delayed fetch
+    // Albums countdown and delayed fetch with query string override
+    function getAlbumsDelay() {
+        const params = new URLSearchParams(window.location.search);
+        const delay = parseInt(params.get('albumsDelay'), 10);
+        return isNaN(delay) ? 10 : Math.max(0, delay);
+    }
+
     const countdownDiv = document.getElementById('albums-countdown');
-    let secondsLeft = 10;
+    let secondsLeft = getAlbumsDelay();
     countdownDiv.textContent = `⏳ Fetching albums in ${secondsLeft} seconds...`;
 
     const countdownInterval = setInterval(() => {
