@@ -45,7 +45,7 @@
             <div id="albums-countdown"></div>
             <table id="albums-table" border="1" style="display:none;">
                 <thead>
-                    <tr><th>Album Name</th></tr>
+                    <tr><th>Album Title</th></tr>
                 </thead>
                 <tbody></tbody>
             </table>
@@ -57,7 +57,7 @@
     fetch('https://metaljase.github.io/browsercapturerewrite/bands_a-m.json')
         .then(response => response.json())
         .then(data => {
-            const bands = data.Bands || [];
+            const bands = data.BandNames || [];
             const tbody = document.querySelector('#bands-am-table tbody');
             bands.forEach(band => {
                 const tr = document.createElement('tr');
@@ -72,7 +72,7 @@
     fetch('https://metaljase.github.io/browsercapturerewrite/bands_n-z.json')
         .then(response => response.json())
         .then(data => {
-            const bands = data.Bands || [];
+            const bands = data.BandNames || [];
             const tbody = document.querySelector('#bands-nz-table tbody');
             bands.forEach(band => {
                 const tr = document.createElement('tr');
@@ -104,7 +104,7 @@
             fetch('https://metaljase.github.io/browsercapturerewrite/albums.json')
                 .then(response => response.json())
                 .then(data => {
-                    const albums = data.Albums || [];
+                    const albums = data.AlbumTitles || [];
                     const tbody = document.querySelector('#albums-table tbody');
                     albums.forEach(album => {
                         const tr = document.createElement('tr');
