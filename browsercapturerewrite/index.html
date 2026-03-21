@@ -104,7 +104,8 @@
             fetch('https://metaljase.github.io/browsercapturerewrite/albums.json')
                 .then(response => response.json())
                 .then(data => {
-                    const albums = data.AlbumTitles || [];
+                    let albums = data.AlbumTitles || [];
+                    albums = albums.slice().sort((a, b) => a.localeCompare(b));
                     const tbody = document.querySelector('#albums-table tbody');
                     albums.forEach(album => {
                         const tr = document.createElement('tr');
