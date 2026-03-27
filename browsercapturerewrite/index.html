@@ -8,22 +8,26 @@
     <link rel="stylesheet" href="page.css">
 </head>
 <body>
+    <h1>Example Web Page for BrowserCaptureRewrite</h1>
     <p>
         The purpose of this web page is to act as an example web page for the the samples project in
         <a href="https://github.com/metaljase/BrowserCaptureRewrite">my BrowserCaptureRewrite repository</a> on GitHub.
     </p>
     <p>
         BrowserCaptureRewrite is a NuGet package that facilitates the interception, capture, and rewriting of HTTP requests/responses performed 
-        on a web page using Playwright.  The samples project contains various examples demonstrating how the NuGet package can be used to 
+        on a web page using Playwright.  The <code>Metalhead.BrowserCaptureRewrite.Samples</code> project contains various examples demonstrating how the NuGet package can be used to 
         capture and manipulate HTTP traffic.
     </p>
 
-    <p>The JavaScript in this web page makes two calls, which both return JSON.  The data returned from those calls are displayed below.</p>
+    <p>
+        The JavaScript in this web page fetches <a href="bands_a-m.json"><code>bands_a-m.json</code></a>, <a href="bands_n-z.json"><code>bands_n-z.json</code></a>, and <a href="albums.json"><code>albums.json</code></a>, then displays below.  <code>albums.json</code> is fetched after a delay to demonstrate the importance of providing a capture completion predicate for capturing delayed responses.
+    </p>
 
 
     <div style="display: flex; gap: 40px; align-items: flex-start;">
         <div>
             <h2>Bands A-M</h2>
+            <code class="highlight">bands_a-m.json</code>
             <table id="bands-am-table" border="1">
                 <thead>
                     <tr><th>Band Name</th></tr>
@@ -33,6 +37,7 @@
         </div>
         <div>
             <h2>Bands N-Z</h2>
+            <code class="highlight">bands_n-z.json</code>
             <table id="bands-nz-table" border="1">
                 <thead>
                     <tr><th>Band Name</th></tr>
@@ -42,6 +47,7 @@
         </div>
         <div>
             <h2>Albums</h2>
+            <code class="highlight">albums.json</code>
             <div id="albums-countdown"></div>
             <table id="albums-table" border="1" style="display:none;">
                 <thead>
@@ -53,72 +59,72 @@
     </div>
 
     <script>
-    // Fetch and display Bands A-M
-    fetch('https://metaljase.github.io/browsercapturerewrite/bands_a-m.json')
-        .then(response => response.json())
-        .then(data => {
-            const bands = data.BandNames || [];
-            const tbody = document.querySelector('#bands-am-table tbody');
-            bands.forEach(band => {
-                const tr = document.createElement('tr');
-                const td = document.createElement('td');
-                td.textContent = band;
-                tr.appendChild(td);
-                tbody.appendChild(tr);
-            });
-        });
-
-    // Fetch and display Bands N-Z
-    fetch('https://metaljase.github.io/browsercapturerewrite/bands_n-z.json')
-        .then(response => response.json())
-        .then(data => {
-            const bands = data.BandNames || [];
-            const tbody = document.querySelector('#bands-nz-table tbody');
-            bands.forEach(band => {
-                const tr = document.createElement('tr');
-                const td = document.createElement('td');
-                td.textContent = band;
-                tr.appendChild(td);
-                tbody.appendChild(tr);
-            });
-        });
-
-    // Albums countdown and delayed fetch with query string override
-    function getAlbumsDelay() {
-        const params = new URLSearchParams(window.location.search);
-        const delay = parseInt(params.get('albumsDelay'), 10);
-        return isNaN(delay) ? 10 : Math.max(0, delay);
-    }
-
-    const countdownDiv = document.getElementById('albums-countdown');
-    let secondsLeft = getAlbumsDelay();
-    countdownDiv.textContent = `⏳ Fetching albums in ${secondsLeft} seconds...`;
-
-    const countdownInterval = setInterval(() => {
-        secondsLeft--;
-        if (secondsLeft > 0) {
-            countdownDiv.textContent = `⏳ Fetching albums in ${secondsLeft} seconds...`;
-        } else {
-            clearInterval(countdownInterval);
-            countdownDiv.textContent = 'Fetching albums...';
-            fetch('https://metaljase.github.io/browsercapturerewrite/albums.json')
-                .then(response => response.json())
-                .then(data => {
-                    let albums = data.AlbumTitles || [];
-                    albums = albums.slice().sort((a, b) => a.localeCompare(b));
-                    const tbody = document.querySelector('#albums-table tbody');
-                    albums.forEach(album => {
-                        const tr = document.createElement('tr');
-                        const td = document.createElement('td');
-                        td.textContent = album;
-                        tr.appendChild(td);
-                        tbody.appendChild(tr);
-                    });
-                    document.getElementById('albums-table').style.display = '';
-                    countdownDiv.textContent = '';
+        // Fetch and display Bands A-M
+        fetch('https://metaljase.github.io/browsercapturerewrite/bands_a-m.json')
+            .then(response => response.json())
+            .then(data => {
+                const bands = data.BandNames || [];
+                const tbody = document.querySelector('#bands-am-table tbody');
+                bands.forEach(band => {
+                    const tr = document.createElement('tr');
+                    const td = document.createElement('td');
+                    td.textContent = band;
+                    tr.appendChild(td);
+                    tbody.appendChild(tr);
                 });
+            });
+
+        // Fetch and display Bands N-Z
+        fetch('https://metaljase.github.io/browsercapturerewrite/bands_n-z.json')
+            .then(response => response.json())
+            .then(data => {
+                const bands = data.BandNames || [];
+                const tbody = document.querySelector('#bands-nz-table tbody');
+                bands.forEach(band => {
+                    const tr = document.createElement('tr');
+                    const td = document.createElement('td');
+                    td.textContent = band;
+                    tr.appendChild(td);
+                    tbody.appendChild(tr);
+                });
+            });
+
+        // Albums countdown and delayed fetch with query string override
+        function getAlbumsDelay() {
+            const params = new URLSearchParams(window.location.search);
+            const delay = parseInt(params.get('albumsDelay'), 10);
+            return isNaN(delay) ? 10 : Math.max(0, delay);
         }
-    }, 1000);
+
+        const countdownDiv = document.getElementById('albums-countdown');
+        let secondsLeft = getAlbumsDelay();
+        countdownDiv.textContent = `⏳ Fetching albums in ${secondsLeft} seconds...`;
+
+        const countdownInterval = setInterval(() => {
+            secondsLeft--;
+            if (secondsLeft > 0) {
+                countdownDiv.textContent = `⏳ Fetching albums in ${secondsLeft} seconds...`;
+            } else {
+                clearInterval(countdownInterval);
+                countdownDiv.textContent = 'Fetching albums...';
+                fetch('https://metaljase.github.io/browsercapturerewrite/albums.json')
+                    .then(response => response.json())
+                    .then(data => {
+                        let albums = data.AlbumTitles || [];
+                        albums = albums.slice().sort((a, b) => a.localeCompare(b));
+                        const tbody = document.querySelector('#albums-table tbody');
+                        albums.forEach(album => {
+                            const tr = document.createElement('tr');
+                            const td = document.createElement('td');
+                            td.textContent = album;
+                            tr.appendChild(td);
+                            tbody.appendChild(tr);
+                        });
+                        document.getElementById('albums-table').style.display = '';
+                        countdownDiv.textContent = '';
+                    });
+            }
+        }, 1000);
     </script>
 </body>
 </html>

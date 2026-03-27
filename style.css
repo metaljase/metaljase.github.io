@@ -7,6 +7,15 @@
     font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
+code, pre, kbd, samp {
+    font-family: Consolas, Menlo, Monaco, "Courier New", monospace;
+    font-size: 1.2em;
+}
+
+.highlight {
+    color: #75b6e7;
+}
+
 h1, h2, h3 {
     color: #75b6e7;
 }
