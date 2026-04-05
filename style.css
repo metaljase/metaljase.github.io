@@ -16,6 +16,14 @@ code, pre, kbd, samp {
     color: #75b6e7;
 }
 
+.highlight-container {
+    color: #75b6e7;
+    border: 2px solid #75b6e7;
+    border-radius: 8px;
+    padding: 10px 12px;
+    display: inline-block;
+}
+
 h1, h2, h3 {
     color: #75b6e7;
 }

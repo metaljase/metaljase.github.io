@@ -14,15 +14,18 @@
         <a href="https://github.com/metaljase/BrowserCaptureRewrite">my BrowserCaptureRewrite repository</a> on GitHub.
     </p>
     <p>
-        BrowserCaptureRewrite is a NuGet package that facilitates the interception, capture, and rewriting of HTTP requests/responses performed 
-        on a web page using Playwright.  The <code>Metalhead.BrowserCaptureRewrite.Samples</code> project contains various examples demonstrating how the NuGet package can be used to 
-        capture and manipulate HTTP traffic.
+        BrowserCaptureRewrite is a NuGet package that facilitates the interception, capture, and rewriting of HTTP requests/responses performed
+        on a web page using Playwright.  The <code>Metalhead.BrowserCaptureRewrite.Samples</code> project contains various examples demonstrating
+        how the NuGet package can be used to capture and manipulate HTTP traffic.
     </p>
 
     <p>
-        The JavaScript in this web page fetches <a href="bands_a-m.json"><code>bands_a-m.json</code></a>, <a href="bands_n-z.json"><code>bands_n-z.json</code></a>, and <a href="albums.json"><code>albums.json</code></a>, then displays below.  <code>albums.json</code> is fetched after a delay to demonstrate the importance of providing a capture completion predicate for capturing delayed responses.
+        The JavaScript in this web page fetches <a href="bands_a-m.json"><code>bands_a-m.json</code></a>, <a href="bands_n-z.json"><code>bands_n-z.json</code></a>,
+        and <a href="albums.json"><code>albums.json</code></a>, then displays below.  <code>albums.json</code> is fetched after a delay to demonstrate
+        the importance of providing a capture completion predicate for capturing delayed responses.
     </p>
 
+    <div id="highlight-container-placeholder"></div>
 
     <div style="display: flex; gap: 40px; align-items: flex-start;">
         <div>
@@ -88,7 +91,8 @@
                     tbody.appendChild(tr);
                 });
             });
-
+    </script>
+    <script>
         // Albums countdown and delayed fetch with query string override
         function getAlbumsDelay() {
             const params = new URLSearchParams(window.location.search);
