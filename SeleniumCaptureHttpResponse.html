@@ -7,27 +7,34 @@
     <link rel="stylesheet" href="style.css ">
 </head>
 <body>
-    <p>The purpose of this web page is to act as an example web page for <a href="https://github.com/metaljase/SeleniumCaptureHttpResponse">my SeleniumCaptureHttpResponse repository</a> on GitHub.</p>
+    <h1>Example Web Page for SeleniumCaptureHttpResponse</h1>
+    <p>
+        This page is an example for the
+        <a href="https://github.com/metaljase/SeleniumCaptureHttpResponse"><code>SeleniumCaptureHttpResponse</code> GitHub repository</a>.
+    </p>
+    <p>
+        It demonstrates how Selenium WebDriver and ChromeDriver can capture HTTP responses from JavaScript API calls on third‑party sites.
+        This can be useful for testing, or as part of scraping 3rd party websites.
+    </p>
 
-    <p>HTTP responses received from calls to APIs (using JavaScript) on 3rd party web pages can be captured using Selenium WebDriver and ChromeDriver.  This can be useful for testing, or as part of scraping 3rd party websites.</p>
-
-    <p>The JavaScript in this web page makes two API calls, which both return JSON in the message body of the HTTP response.  Some of the data returned from those API calls are displayed below.  SeleniumCaptureHttpResponse contains a .NET 8 console app that demonstrates capturing all the JSON from those API calls, and writing the JSON to the console.</p>
+    <p>
+        The JavaScript in this web page makes two API calls that return JSON, and some of that data is shown below.  The repository includes a .NET 8
+        console app that captures the full JSON responses and writes them to the console.
+    </p>
 
     <div class="table-container">
         <table>
             <thead>
                 <tr><th>Name</th><th>Email Address</th></tr>
             </thead>
-            <tbody id="users">
-            </tbody>
+            <tbody id="users"></tbody>
         </table>
 
         <table>
             <thead>
                 <tr><th>ID</th><th>Album Title</th></tr>
             </thead>
-            <tbody id="albums">
-            </tbody>
+            <tbody id="albums"></tbody>
         </table>
     </div>
 
